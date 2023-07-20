@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/constants/my_colors.dart';
 import 'package:flutter_chat_app/constants/my_style.dart';
 import 'package:flutter_chat_app/constants/my_widget.dart';
+import 'package:flutter_chat_app/controller/auth_controller.dart';
 import 'package:flutter_chat_app/controller/login_controller.dart';
 import 'package:flutter_chat_app/widget/my_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,9 +51,11 @@ class LoginScreen extends StatelessWidget {
                   MyWidgets().gapH(Get.height * 0.1),
                   MyButton(
                     btnText: 'Login',
-                    onPressed: () {},
+                    onPressed: () {
+                      AuthController.instance.signInUser(controller.emailController.text, controller.passwordController.text);
+                    },
                   ),
-                  MyWidgets().gapH(Get.height * 0.1),
+                  MyWidgets().gapH(Get.height * 0.03),
                   RichText(
                     text: TextSpan(
                       text: "Don't have an account? ",
@@ -70,6 +73,41 @@ class LoginScreen extends StatelessWidget {
                         )
                       ],
                     ),
+                  ),
+                  MyWidgets().gapH(Get.height * 0.03),
+                  Text("Or",style: textRegularStyle(fontSize: 20),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            AuthController.instance.signInWithGoogle();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: MyColors.grey.withOpacity(0.2),
+                                border: Border.all(
+                                    color: MyColors.white, width: 1),
+                                borderRadius: borderCircular,),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  "assets/png/google.png",
+                                  height: 30.h,
+                                ),
+                                MyWidgets().gapW16(),
+                                Text(
+                                  "Sign in with Google",
+                                  style: textRegularStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: MyColors.primary,),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ],
                   )
                 ],
               ),

@@ -56,6 +56,12 @@ class MyEditText extends StatelessWidget {
           keyboardType: textInputType,
           obscureText: isPassword ? true : false,
           focusNode: focusNode,
+          onFieldSubmitted: (_) {
+            focusNode?.unfocus();
+            if (nextFocus != null) {
+              FocusScope.of(context).requestFocus(nextFocus);
+            }
+          },
         )
       ],
     );
