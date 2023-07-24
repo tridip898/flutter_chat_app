@@ -2,9 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_app/constants/my_colors.dart';
-import 'package:flutter_chat_app/screen/login_screen.dart';
-import 'package:flutter_chat_app/screen/register_screen.dart';
-import 'package:flutter_chat_app/screen/splash_screen.dart';
+import 'package:flutter_chat_app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -36,23 +34,10 @@ class MyApp extends StatelessWidget {
       useInheritedMediaQuery: true,
       builder: (context, child) {
         return GetMaterialApp(
-          initialRoute: '/splash',
+          initialRoute: AppPages.INITIAL,
           defaultTransition: transition,
           transitionDuration: const Duration(milliseconds: 500),
-          getPages: [
-            GetPage(
-              name: '/splash',
-              page: () => SplashScreen(),
-            ),
-            GetPage(
-              name: '/login',
-              page: () => LoginScreen(),
-            ),
-            GetPage(
-              name: '/register',
-              page: () => RegisterScreen(),
-            ),
-          ],
+          getPages: AppPages.routes,
           title: "Chat App",
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

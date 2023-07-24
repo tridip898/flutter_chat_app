@@ -41,7 +41,27 @@ dependencies:
   logger:
   firebase_auth:
   firebase_core:
-  google_sign_in: 
+  google_sign_in:
+  cloud_firestore:
+  photo_view: ^0.14.0
+  image_picker: ^1.0.1
+  location: ^5.0.1
+  firebase_storage: ^11.2.5
+  firebase_messaging: ^14.6.5
+  firebase_in_app_messaging: ^0.7.3+4
+  dots_indicator: ^3.0.0
+  card_swiper: ^3.0.1
+  flutter_spinkit: ^5.2.0
+  sentry: ^7.8.0
+  permission_handler: ^10.4.3
+  path_provider: ^2.0.15
+  package_info_plus: ^4.0.2
+  device_info_plus: ^9.0.2
+  share_plus: ^7.0.2
+  loading_animation_widget: ^1.2.0+4
+  sqflite: ^2.2.8+4
+  flutter_secure_storage:
+  webview_flutter: ^4.2.2
 
 dev_dependencies:
   flutter_test:

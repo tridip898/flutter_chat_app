@@ -4,14 +4,14 @@ import 'package:flutter_chat_app/constants/my_colors.dart';
 import 'package:flutter_chat_app/constants/my_style.dart';
 import 'package:flutter_chat_app/constants/my_widget.dart';
 import 'package:flutter_chat_app/controller/auth_controller.dart';
-import 'package:flutter_chat_app/controller/login_controller.dart';
-import 'package:flutter_chat_app/controller/register_controller.dart';
+import 'package:flutter_chat_app/screen/registration_screen/register_controller.dart';
+import 'package:flutter_chat_app/routes/app_pages.dart';
 import 'package:flutter_chat_app/widget/my_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../constants/my_constant.dart';
-import '../widget/my_edit_text.dart';
+import '../../constants/my_constant.dart';
+import '../../widget/my_edit_text.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -70,7 +70,7 @@ class RegisterScreen extends StatelessWidget {
                     MyButton(
                       btnText: 'Registration',
                       onPressed: () {
-                        AuthController.instance.registerUser(controller.emailController.text, controller.passwordController.text);
+                        AuthController.instance.registerUser(controller.emailController.text, controller.passwordController.text,controller.fullNameController.text,controller.phoneController.text);
                       },
                     ),
                     MyWidgets().gapH(Get.height * 0.05),
@@ -86,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
                                 color: MyColors.primary,
                               ),
                               recognizer: TapGestureRecognizer()..onTap=(){
-                                Get.toNamed('/login');
+                                Get.toNamed(Routes.LOGIN);
                               }
                           )
                         ],

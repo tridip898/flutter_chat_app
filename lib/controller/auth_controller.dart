@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_chat_app/constants/my_colors.dart';
-import 'package:flutter_chat_app/screen/login_screen.dart';
+import 'package:flutter_chat_app/screen/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../constants/my_constant.dart';
 import '../constants/my_style.dart';
-import '../screen/home_screen.dart';
+import '../screen/home_screen/home_screen.dart';
 
 class AuthController extends GetxController {
   //AuthController instance
@@ -17,6 +18,9 @@ class AuthController extends GetxController {
   late Rx<User?> user;
 
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  //instance of firestore
+  final FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
 
   var googleSignIn = GoogleSignIn();
   var googleAcc = Rx<GoogleSignInAccount?>(null);
@@ -43,10 +47,18 @@ class AuthController extends GetxController {
     }
   }
 
-  void registerUser(String email, String password) async {
+  void registerUser(String email, String password,String fullName,String phone) async {
     try {
-      await auth.createUserWithEmailAndPassword(
+      final UserCredential userCredential= await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      //after creating the user, creating a document for the user in the user collection
+      firebaseFirestore.collection('users').doc(userCredential.user?.uid).set(
+          {
+            'userid':userCredential.user?.uid,
+            'email':email,
+            'full_name': fullName,
+            'phone':phone
+          });
     } catch (e) {
       Get.snackbar("About User", "User message",
           backgroundColor: MyColors.red,
@@ -64,7 +76,16 @@ class AuthController extends GetxController {
 
   void signInUser(String email, String password) async {
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential=await auth.signInWithEmailAndPassword(email: email, password: password);
+
+      //after creating the user, creating a document for the user in the user collection
+      // firebaseFirestore.collection('users').doc(userCredential.user?.uid).set(
+      //     {
+      //       'userid':userCredential.user?.uid,
+      //       'email':email,
+      //       'full_name': fullName,
+      //       'phone':phone
+      //     });
       //Get.offAll(() => HomeScreen());
     } catch (e) {
       Get.snackbar("About login", "Login message",
